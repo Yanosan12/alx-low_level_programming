@@ -1,29 +1,63 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "main.h"
+#include <stdlib.h>
+
 /**
- * _strdup - duplicate to new memory space location
- * @str: char
- * Return: 0
+ * _strlen - returns the length of a given string
+ * @s: the string
+ * Return: the length of given string
  */
+
+int _strlen(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+/**
+ * _create_array - creates an array of chars.
+ * @size: the size of the memory to allocate.
+ * Return: the array created.
+ */
+
+char *_create_array(unsigned int size)
+{
+	char *array;
+
+	if (size == 0)
+		return (NULL);
+	array = malloc(sizeof(char) * size);
+	if (!array)
+		return (NULL);
+	return (array);
+}
+
+/**
+ * _strdup - duplicates a given string.
+ * @str: the string to duplicate.
+ * Return: the array created.
+ */
+
 char *_strdup(char *str)
 {
-	char *aaa;
-	int i, r = 0;
+	char *new_str;
+	int i;
 
 	if (str == NULL)
 		return (NULL);
 	i = 0;
-	while (str[i] != '\0')
-		i++;
-
-	aaa = malloc(sizeof(char) * (i + 1));
-
-	if (aaa == NULL)
+	new_str = _create_array(_strlen(str) + 1);
+	if (!new_str)
 		return (NULL);
-
-	for (r = 0; str[r]; r++)
-		aaa[r] = str[r];
-
-	return (aaa);
- }
+	while (i <= _strlen(str))
+	{
+		new_str[i] = str[i];
+		i++;
+	}
+	return (new_str);
+}
